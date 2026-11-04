@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Flask Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef6f5;
+        }
+        .card {
+            width: 380px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 25px;
+            border: 1px solid #ccd;
+        }
+        h2 {
+            text-align: center;
+            color: #0f5c5c;
+        }
+        input, select {
+            width: 100%;
+            padding: 9px;
+            margin: 5px 0 14px 0;
+            font-size: 15px;
+            border: 1px solid #99a;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #0f5c5c;
+            color: #fff;
+            border: 0;
+            font-size: 16px;
+        }
+        .res {
+            margin-top: 18px;
+            padding: 10px;
+            background: #e3f6e8;
+            text-align: center;
+            font-size: 18px;
+        }
+        .err {
+            margin-top: 18px;
+            padding: 10px;
+            background: #fde7e7;
+            text-align: center;
+            color: #b3261e;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Flask Calculator</h2>
+
+        <form method="post">
+            First Number
+            <input type="text" name="num1"
+                   value="{{ request.form.num1 }}">
+
+            Second Number
+            <input type="text" name="num2"
+                   value="{{ request.form.num2 }}">
+
+            Operation
+            <select name="operation">
+    <option value="add"
+        {% if request.form.operation == 'add' %}selected{% endif %}>
+        Addition (+)
+    </option>
+
+    <option value="sub"
+        {% if request.form.operation == 'sub' %}selected{% endif %}>
+        Subtraction (-)
+    </option>
+
+    <option value="mul"
+        {% if request.form.operation == 'mul' %}selected{% endif %}>
+        Multiplication (*)
+    </option>
+
+    <option value="div"
+        {% if request.form.operation == 'div' %}selected{% endif %}>
+        Division (/)
+    </option>
+</select>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if result is not none %}
+            <div class="res">Result = <b>{{ result }}</b></div>
+        {% endif %}
+
+        {% if error %}
+            <div class="err">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
